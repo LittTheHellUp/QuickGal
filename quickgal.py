@@ -19,7 +19,9 @@ for root, dirs, files in os.walk(base_path):
         image_files.append([os.path.join(root,image),im.size])
       except:
         continue
-
+if ( len(image_files) < 1 ):
+	print "No images found"
+	sys.exit(1)
 for image in image_files:
   print os.path.basename(image[0]), " - ", str(image[1][0]) + 'x' + str(image[1][1])
 
@@ -42,7 +44,7 @@ html = [
 for image in image_files:
   ratio = THUMBNAIL_WIDTH / float(image[1][0])
   height = int(ratio * image[1][1])
-  html.append('       <img class="lazy" data-original="file:///'+image[0]+'" width="'+str(THUMBNAIL_WIDTH)+'" height="'+str(height)+'">')
+  html.append('       <a href="file:///'+image[0]+'" target="_blank"><img class="lazy" data-original="file:///'+image[0]+'" width="'+str(THUMBNAIL_WIDTH)+'" height="'+str(height)+'"></a>')
 
 html.extend(
     [
